@@ -148,9 +148,12 @@ function retry(/* func, attempts */) {
 function logger(func, logFunc) {
   let res;
   return (...x) => {
-    logFunc(`${func.name}(${x}) starts`);
-    res = func(x);
-    console.log(logFunc(`${func.name}(${x}) ends`));
+    const { stdout } = process;
+    let temp = JSON.stringify(x);
+    if ((temp[0] === '[') && (temp[temp.length - 1] === ']')) { temp = temp.slice(1, temp.length - 1); }
+    logFunc(`${func.name}(${temp}) starts`);
+    res = func([x]);
+    stdout.write(logFunc(`${func.name}(${temp}) ends`));
     return res;
   };
 }
