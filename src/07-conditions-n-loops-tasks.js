@@ -129,8 +129,36 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const x1 = rect1.left;
+  const y1 = rect1.top;
+  const x2 = rect1.left + rect1.width;
+  // const y2 = rect1.top;
+  // const x3 = rect1.left;
+  const y3 = rect1.top + rect1.height;
+  // const x4 = rect1.left + rect1.width;
+  // const y4 = rect1.top + rect1.height;
+
+  const rx1 = rect2.left;
+  const ry1 = rect2.top;
+  const rx2 = rect2.left + rect1.width;
+  const ry2 = rect2.top;
+  const rx3 = rect2.left;
+  const ry3 = rect2.top + rect1.height;
+  const rx4 = rect2.left + rect1.width;
+  const ry4 = rect2.top + rect1.height;
+
+  let res;
+
+  if (((rx1 >= x1) && (rx1 <= x2) && (ry1 >= y1) && (ry1 <= y3))
+    || ((rx2 >= x1) && (rx2 <= x2) && (ry2 >= y1) && (ry2 <= y3))
+    || ((rx3 >= x1) && (rx3 <= x2) && (ry3 >= y1) && (ry3 <= y3))
+    || ((rx4 >= x1) && (rx4 <= x2) && (ry4 >= y1) && (ry4 <= y3))) {
+    res = true;
+  } else {
+    res = false;
+  }
+  return res;
 }
 
 
@@ -286,8 +314,24 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const splittedString = String(ccn).split('');
+  const reversedArray = splittedString.reverse();
+  const tempString = reversedArray.join('');
+  let sum = '';
+  for (let i = 0; i < tempString.length; i += 1) {
+    if (i % 2 === 1) {
+      sum += Number(tempString[i]) * 2;
+    } else {
+      sum += Number(tempString[i]);
+    }
+  }
+  const finalArray = sum.split('');
+  let summary = 0;
+  finalArray.forEach((element) => {
+    summary += Number(element);
+  });
+  return summary % 10 === 0;
 }
 
 /**
@@ -446,8 +490,32 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let res;
+
+  if ((position[0][0] === 'X') && (position[0][1] === 'X') && (position[0][2] === 'X')) { res = 'X'; }
+  if ((position[1][0] === 'X') && (position[1][1] === 'X') && (position[1][2] === 'X')) { res = 'X'; }
+  if ((position[2][0] === 'X') && (position[2][1] === 'X') && (position[2][2] === 'X')) { res = 'X'; }
+
+  if ((position[0][0] === 'X') && (position[1][0] === 'X') && (position[2][0] === 'X')) { res = 'X'; }
+  if ((position[0][1] === 'X') && (position[1][1] === 'X') && (position[2][1] === 'X')) { res = 'X'; }
+  if ((position[0][2] === 'X') && (position[1][2] === 'X') && (position[2][2] === 'X')) { res = 'X'; }
+
+  if ((position[0][0] === 'X') && (position[1][1] === 'X') && (position[2][2] === 'X')) { res = 'X'; }
+  if ((position[2][0] === 'X') && (position[1][1] === 'X') && (position[0][2] === 'X')) { res = 'X'; }
+
+  if ((position[0][0] === '0') && (position[0][1] === '0') && (position[0][2] === '0')) { res = '0'; }
+  if ((position[1][0] === '0') && (position[1][1] === '0') && (position[1][2] === '0')) { res = '0'; }
+  if ((position[2][0] === '0') && (position[2][1] === '0') && (position[2][2] === '0')) { res = '0'; }
+
+  if ((position[0][0] === '0') && (position[1][0] === '0') && (position[2][0] === '0')) { res = '0'; }
+  if ((position[0][1] === '0') && (position[1][1] === '0') && (position[2][1] === '0')) { res = '0'; }
+  if ((position[0][2] === '0') && (position[1][2] === '0') && (position[2][2] === '0')) { res = '0'; }
+
+  if ((position[0][0] === '0') && (position[1][1] === '0') && (position[2][2] === '0')) { res = '0'; }
+  if ((position[2][0] === '0') && (position[1][1] === '0') && (position[0][2] === '0')) { res = '0'; }
+
+  return res;
 }
 
 
