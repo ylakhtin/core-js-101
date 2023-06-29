@@ -150,9 +150,11 @@ function logger(func, logFunc) {
   return (...x) => {
     const { stdout } = process;
     let temp = JSON.stringify(x);
-    if ((temp[0] === '[') && (temp[temp.length - 1] === ']')) { temp = temp.slice(1, temp.length - 1); }
+    if (temp[0] === '[' && temp[temp.length - 1] === ']') {
+      temp = temp.slice(1, temp.length - 1);
+    }
     logFunc(`${func.name}(${temp}) starts`);
-    res = func([x]);
+    res = func(...x); // Change [x] to ...x
     stdout.write(logFunc(`${func.name}(${temp}) ends`));
     return res;
   };
